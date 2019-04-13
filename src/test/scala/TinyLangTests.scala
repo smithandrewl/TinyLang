@@ -18,9 +18,6 @@ object TinyLangTests extends TestSuite {
         assert(evaluate(BooleanType(false)) == BooleanType(false))
       }
     }
-    'test2 - {
-      1
-    }
   }
 }
 }
