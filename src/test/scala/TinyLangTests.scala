@@ -1,14 +1,18 @@
 
-package test.utest.examples
+
 
 import utest._
+
+package root {
+
 object TinyLangTests extends TestSuite {
   val tests = Tests {
-    'test1 - {
-      throw new Exception("test1")
+    'Boolean - {
+       true
     }
     'test2 - {
       1
     }
   }
+}
 }
