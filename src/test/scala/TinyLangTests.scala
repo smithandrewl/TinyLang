@@ -3,12 +3,20 @@
 
 import utest._
 
+import Language._
+
 package root {
 
 object TinyLangTests extends TestSuite {
   val tests = Tests {
     'Boolean - {
-       true
+       'TrueIsTrue - {
+         evaluate(BooleanType(true)) == BooleanType(true)
+       }
+
+      'FalseIsFalse - {
+        assert(evaluate(BooleanType(false)) == BooleanType(false))
+      }
     }
     'test2 - {
       1
