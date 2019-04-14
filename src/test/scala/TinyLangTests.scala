@@ -89,6 +89,38 @@ package root {
       }
 
       'Or - {
+        'ExprOrExprIsTrue - {
+          assert(
+            evaluate(
+              OrOperation(
+                AndOperation(
+                  BooleanType(true),
+                  BooleanType(true)
+                ),
+                OrOperation(
+                  BooleanType(false),
+                  BooleanType(false)
+                )
+              )
+            ) == BooleanType(true)
+          )
+        }
+        'ExprOrExprIsFalse - {
+          assert(
+            evaluate(
+              OrOperation(
+                OrOperation(
+                  BooleanType(false),
+                  BooleanType(false)
+                ),
+                AndOperation(
+                  BooleanType(true),
+                  BooleanType(false)
+                )
+              )
+            ) == BooleanType(false)
+          )
+        }
         'TrueOrBooleanIsTrue - {
           assert(
             evaluate(
@@ -126,6 +158,7 @@ package root {
             ) == BooleanType(false)
           )
         }
+
       }
       'Not {
         'NotTrueIsFalse {
