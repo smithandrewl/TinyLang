@@ -5,5 +5,6 @@ object Language {
   def evaluate(expr: Expr) = expr match {
     case BooleanType(x) => BooleanType(x)
     case AndOperation(BooleanType(false), BooleanType(_)) => BooleanType(false)
+    case AndOperation(BooleanType(_), BooleanType(false)) => BooleanType(false)
   }
 }

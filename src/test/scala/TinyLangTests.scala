@@ -23,6 +23,10 @@ object TinyLangTests extends TestSuite {
         assert(evaluate(AndOperation(BooleanType(false), BooleanType(false))) == BooleanType(false))
         assert(evaluate(AndOperation(BooleanType(false), BooleanType(true))) == BooleanType(false))
       }
+      'BooleanAndFalseIsFalse - {
+        assert(evaluate(AndOperation(BooleanType(false), BooleanType(false))) == BooleanType(false))
+        assert(evaluate(AndOperation(BooleanType(true), BooleanType(false))) == BooleanType(false))
+      }
     }
   }
 }
