@@ -8,7 +8,7 @@ object Language {
     case BooleanType(x) => BooleanType(x)
     case AndOperation(BooleanType(false), BooleanType(_)) => BooleanType(false)
     case AndOperation(BooleanType(_), BooleanType(false)) => BooleanType(false)
-    case AndOperation(BooleanType(true), BooleanType(true)) => BooleanType(true)
+    case AndOperation(BooleanType(_), BooleanType(_)) => BooleanType(true)
     case OrOperation(BooleanType(true), BooleanType(false)) => BooleanType(true)
     case OrOperation(BooleanType(false), BooleanType(true)) => BooleanType(true)
     case OrOperation(BooleanType(false), BooleanType(false)) => BooleanType(false)
