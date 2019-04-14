@@ -224,6 +224,38 @@ package root {
             ) == BooleanType(true)
           )
         }
+        'ExprXorExprIsTrue {
+          assert(
+            evaluate(
+              XorOperation(
+                AndOperation(
+                  BooleanType(true),
+                  BooleanType(false)
+                ),
+                OrOperation(
+                  BooleanType(true),
+                  BooleanType(false)
+                )
+              )
+            ) == BooleanType(true)
+          )
+        }
+        'ExprXorExprIsFalse {
+          assert(
+            evaluate(
+              XorOperation(
+                OrOperation(
+                  BooleanType(false),
+                  BooleanType(false)
+                ),
+                AndOperation(
+                  BooleanType(true),
+                  BooleanType(false)
+                )
+              )
+            ) == BooleanType(false)
+          )
+        }
       }
     }
   }
