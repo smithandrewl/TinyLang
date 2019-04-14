@@ -32,6 +32,15 @@ object TinyLangTests extends TestSuite {
       }
     }
 
+    'Or - {
+      'TrueOrBooleanIsTrue - {
+        assert(evaluate(OrOperation(BooleanType(true), BooleanType(false))) == BooleanType(true))
+        assert(evaluate(OrOperation(BooleanType(false), BooleanType(true))) == BooleanType(true))
+        assert(evaluate(OrOperation(BooleanType(true), BooleanType(true))) == BooleanType(true))
+        assert(evaluate(OrOperation(BooleanType(false), BooleanType(false))) == BooleanType(false))
+      }
+    }
+
   }
 }
 }
