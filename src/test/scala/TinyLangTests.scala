@@ -112,6 +112,13 @@ package root {
             ) == BooleanType(false)
           )
         }
+        'NotFalseIsTrue {
+          assert(
+            evaluate(
+              NotOperation(BooleanType(false))
+            ) == BooleanType(true)
+          )
+        }
       }
     }
   }
