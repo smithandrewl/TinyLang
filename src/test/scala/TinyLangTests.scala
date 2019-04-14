@@ -120,6 +120,36 @@ package root {
           )
         }
       }
+      'Xor{
+        'TrueXorTrue {
+          assert(
+            evaluate(
+              XorOperation(BooleanType(true), BooleanType(true))
+            ) == BooleanType(false)
+          )
+        }
+        'FalseXorFalse {
+          assert(
+            evaluate(
+              XorOperation(BooleanType(false), BooleanType(false))
+            ) == BooleanType(false)
+          )
+        }
+        'TrueXorFalse {
+          assert(
+            evaluate(
+              XorOperation(BooleanType(true), BooleanType(false))
+            ) == BooleanType(true)
+          )
+        }
+        'FalseXorTrue {
+          assert(
+            evaluate(
+              XorOperation(BooleanType(false), BooleanType(true))
+            ) == BooleanType(true)
+          )
+        }
+      }
     }
   }
 }
