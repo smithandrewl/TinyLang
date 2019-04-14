@@ -3,6 +3,7 @@ object Language {
   case class BooleanType(value: Boolean)                           extends Expr
   case class AndOperation(left: BooleanType,  right: BooleanType)  extends Expr
   case class OrOperation(left:  BooleanType,  right: BooleanType)  extends Expr
+  case class NotOperation(center: BooleanType) extends Expr
 
   def evaluate(expr: Expr) = expr match {
     case BooleanType(x) => BooleanType(x)
@@ -12,5 +13,7 @@ object Language {
     case OrOperation(BooleanType(true),   BooleanType(_))     => BooleanType(true)
     case OrOperation(BooleanType(_),      BooleanType(true))  => BooleanType(true)
     case OrOperation(BooleanType(_),      BooleanType(_))     => BooleanType(false)
+    case NotOperation(BooleanType(true))                      => BooleanType(false)
+    case NotOperation(BooleanType(false))                     => BooleanType(true)
   }
 }

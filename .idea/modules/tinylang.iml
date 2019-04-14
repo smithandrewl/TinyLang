@@ -14,15 +14,15 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.11.12:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: org.scala-sbt:test-interface:1.0:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: org.scala-native:test-interface_native0.3_2.11:0.3.8:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: org.scala-native:test-interface-serialization_native0.3_2.11:0.3.8:jar" level="project" />
-    <orderEntry type="library" scope="TEST" name="sbt: org.scala-native:test-interface-sbt-defs_native0.3_2.11:0.3.8:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-native:scalalib_native0.3_2.11:0.3.8:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-native:nativelib_native0.3_2.11:0.3.8:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-native:javalib_native0.3_2.11:0.3.8:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-native:auxlib_native0.3_2.11:0.3.8:jar" level="project" />
-    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.11.12:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="sbt: com.lihaoyi:utest_native0.3_2.11:0.6.7:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-reflect:2.11.12:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-native:auxlib_native0.3_2.11:0.3.8:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-native:javalib_native0.3_2.11:0.3.8:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-native:nativelib_native0.3_2.11:0.3.8:jar" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-native:scalalib_native0.3_2.11:0.3.8:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: org.scala-native:test-interface-sbt-defs_native0.3_2.11:0.3.8:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: org.scala-native:test-interface-serialization_native0.3_2.11:0.3.8:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: org.scala-native:test-interface_native0.3_2.11:0.3.8:jar" level="project" />
+    <orderEntry type="library" scope="TEST" name="sbt: org.scala-sbt:test-interface:1.0:jar" level="project" />
   </component>
 </module>
