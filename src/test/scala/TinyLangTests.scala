@@ -11,11 +11,17 @@ object TinyLangTests extends TestSuite {
   val tests = Tests {
     'Boolean - {
        'TrueIsTrue - {
-         evaluate(BooleanExpr(true)) == BooleanExpr(true)
+         evaluate(BooleanType(true)) == BooleanType(true)
        }
 
       'FalseIsFalse - {
-        assert(evaluate(BooleanExpr(false)) == BooleanExpr(false))
+        assert(evaluate(BooleanType(false)) == BooleanType(false))
+      }
+    }
+    'And - {
+      'FalseAndBooleanIsFalse - {
+        assert(evaluate(AndOperation(BooleanType(false), BooleanType(false))) == BooleanType(false))
+        assert(evaluate(AndOperation(BooleanType(false), BooleanType(true))) == BooleanType(false))
       }
     }
   }
