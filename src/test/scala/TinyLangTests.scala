@@ -175,6 +175,25 @@ package root {
             ) == BooleanType(true)
           )
         }
+        'NotExprIsTrue {
+          assert(
+            evaluate(
+              NotOperation(AndOperation(BooleanType(true), BooleanType(false)))
+            ) == BooleanType(true)
+          )
+        }
+        'NotExprIsFalse {
+          assert(
+            evaluate(
+              NotOperation(
+                AndOperation(
+                  BooleanType(true),
+                  BooleanType(true)
+                )
+              )
+            ) == BooleanType(false)
+          )
+        }
       }
       'Xor{
         'TrueXorTrue {
