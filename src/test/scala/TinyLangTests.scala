@@ -15,6 +15,29 @@ package root {
         }
       }
       'And - {
+        'ExprAndExprIsTrue - {
+          assert(
+            evaluate(
+              AndOperation(
+                AndOperation(
+                  BooleanType(true),
+                  BooleanType(true)
+                ),
+                BooleanType(true)
+              )
+            )
+           == BooleanType(true))
+        }
+        'ExprAndExprIsFalse - {
+          assert(
+            evaluate(
+              AndOperation(
+                BooleanType(true),
+                AndOperation(BooleanType(false), BooleanType(true))
+              )
+            ) == BooleanType(false)
+          )
+        }
         'FalseAndBooleanIsFalse - {
           assert(
             evaluate(
