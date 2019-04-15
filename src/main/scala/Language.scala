@@ -6,22 +6,37 @@ object Language {
   case class XorOperation(left: Expr,  right: Expr) extends Expr
   case class NotOperation(center: Expr)             extends Expr
 
-  def evaluate(expr: Expr): Expr = expr match {
-    case BooleanType(x) => BooleanType(x)
+  def evaluate(expr: Expr): Expr = {
+    expr match {
+      case BooleanType(x)            => BooleanType(x)
+      case AndOperation(left, right) => evalAnd(AndOperation(left, right))
+      case OrOperation(left, right)  => evalOr(OrOperation(left, right))
+      case NotOperation(center)      => evalNot(NotOperation(center))
+      case XorOperation(left, right) => evalXor(XorOperation(left, right))
+    }
+  }
+
+  def evalAnd(expr: AndOperation): Expr = expr match  {
     case AndOperation(BooleanType(false), BooleanType(_))     => BooleanType(false)
     case AndOperation(BooleanType(_),     BooleanType(false)) => BooleanType(false)
     case AndOperation(BooleanType(_),     BooleanType(_))     => BooleanType(true)
     case AndOperation(x, y)                                   => evaluate(AndOperation(evaluate(x), evaluate(y)))
+  }
 
+  def evalOr(expr: OrOperation): Expr = expr match {
     case OrOperation(BooleanType(true),   BooleanType(_))     => BooleanType(true)
     case OrOperation(BooleanType(_),      BooleanType(true))  => BooleanType(true)
     case OrOperation(BooleanType(_),      BooleanType(_))     => BooleanType(false)
     case OrOperation(left, right)                             => evaluate(OrOperation(evaluate(left), evaluate(right)))
+  }
 
-    case NotOperation(BooleanType(true))                      => BooleanType(false)
-    case NotOperation(BooleanType(false))                     => BooleanType(true)
-    case NotOperation(center)                                 => evaluate(NotOperation(evaluate(center)))
+  def evalNot(expr: NotOperation): Expr = expr match {
+    case NotOperation(BooleanType(true))  => BooleanType(false)
+    case NotOperation(BooleanType(false)) => BooleanType(true)
+    case NotOperation(center)             => evaluate(NotOperation(evaluate(center)))
+  }
 
+  def evalXor(expr: XorOperation): Expr = expr match {
     case XorOperation(BooleanType(true),  BooleanType(false)) => BooleanType(true)
     case XorOperation(BooleanType(false), BooleanType(true))  => BooleanType(true)
     case XorOperation(BooleanType(true),  BooleanType(true))  => BooleanType(false)
