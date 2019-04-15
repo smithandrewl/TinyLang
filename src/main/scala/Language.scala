@@ -1,10 +1,10 @@
 object Language {
   sealed abstract class Expr
-  case class BooleanType(value: Boolean)                           extends Expr
-  case class AndOperation(left: Expr,  right: Expr)                extends Expr
-  case class OrOperation(left:  Expr,  right: Expr)                extends Expr
-  case class NotOperation(center: Expr)                            extends Expr
-  case class XorOperation(left: Expr, right: Expr)   extends Expr
+  case class BooleanType(value: Boolean)            extends Expr
+  case class AndOperation(left: Expr,  right: Expr) extends Expr
+  case class OrOperation(left:  Expr,  right: Expr) extends Expr
+  case class XorOperation(left: Expr,  right: Expr) extends Expr
+  case class NotOperation(center: Expr)             extends Expr
 
   def evaluate(expr: Expr): Expr = expr match {
     case BooleanType(x) => BooleanType(x)
@@ -16,16 +16,16 @@ object Language {
     case OrOperation(BooleanType(true),   BooleanType(_))     => BooleanType(true)
     case OrOperation(BooleanType(_),      BooleanType(true))  => BooleanType(true)
     case OrOperation(BooleanType(_),      BooleanType(_))     => BooleanType(false)
-    case OrOperation(left, right) => evaluate(OrOperation(evaluate(left), evaluate(right)))
+    case OrOperation(left, right)                             => evaluate(OrOperation(evaluate(left), evaluate(right)))
 
     case NotOperation(BooleanType(true))                      => BooleanType(false)
     case NotOperation(BooleanType(false))                     => BooleanType(true)
-    case NotOperation(center) => evaluate(NotOperation(evaluate(center)))
+    case NotOperation(center)                                 => evaluate(NotOperation(evaluate(center)))
 
     case XorOperation(BooleanType(true),  BooleanType(false)) => BooleanType(true)
     case XorOperation(BooleanType(false), BooleanType(true))  => BooleanType(true)
     case XorOperation(BooleanType(true),  BooleanType(true))  => BooleanType(false)
     case XorOperation(BooleanType(false), BooleanType(false)) => BooleanType(false)
-    case XorOperation(left, right) => evaluate(XorOperation(evaluate(left), evaluate(right)))
+    case XorOperation(left, right)                            => evaluate(XorOperation(evaluate(left), evaluate(right)))
   }
 }
