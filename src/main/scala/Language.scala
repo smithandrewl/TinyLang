@@ -8,6 +8,7 @@ object Language {
 
   case class IntegerType(value: Int)                extends Expr
   case class AddOperation(left: Expr, right: Expr)  extends Expr
+  case class SubOperation(left: Expr, right: Expr)  extends Expr
 
   def evaluate(expr: Expr): Expr = {
     expr match {
@@ -18,9 +19,16 @@ object Language {
       case NotOperation(center)      => evalNot(NotOperation(center))
       case XorOperation(left, right) => evalXor(XorOperation(left, right))
       case AddOperation(left, right) => evalAdd(AddOperation(left, right))
+      case SubOperation(left, right) => evalSub(SubOperation(left, right))
     }
   }
 
+  def evalSub(expr: SubOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
+    case (IntegerType(left), IntegerType(right)) => {
+      IntegerType(left - right)
+    }
+    case (_, _) => throw new Exception("Sub called with non integer operands")
+  }
   def evalAdd(expr: AddOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
     case (IntegerType(left), IntegerType(right)) => {
       IntegerType(left + right)
