@@ -7,7 +7,7 @@ package root {
     val tests = Tests {
       'Boolean - {
         'TrueIsTrue - {
-          evaluate(BooleanType(true)) == BooleanType(true)
+          assert(evaluate(BooleanType(true)) == BooleanType(true))
         }
 
         'FalseIsFalse - {
