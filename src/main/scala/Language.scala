@@ -23,7 +23,6 @@ object Language {
 
   def evalAdd(expr: AddOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
     case (IntegerType(left), IntegerType(right)) => {
-      print(s"left=${left}, right=${right}")
       IntegerType(left + right)
     }
     case (_, _) => throw new Exception("Add called with non integer operands")
