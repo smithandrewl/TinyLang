@@ -6,14 +6,27 @@ object Language {
   case class XorOperation(left: Expr,  right: Expr) extends Expr
   case class NotOperation(center: Expr)             extends Expr
 
+  case class IntegerType(value: Int)                extends Expr
+  case class AddOperation(left: Expr, right: Expr)  extends Expr
+
   def evaluate(expr: Expr): Expr = {
     expr match {
       case BooleanType(x)            => BooleanType(x)
+      case IntegerType(x)            => IntegerType(x)
       case AndOperation(left, right) => evalAnd(AndOperation(left, right))
       case OrOperation(left, right)  => evalOr(OrOperation(left, right))
       case NotOperation(center)      => evalNot(NotOperation(center))
       case XorOperation(left, right) => evalXor(XorOperation(left, right))
+      case AddOperation(left, right) => evalAdd(AddOperation(left, right))
     }
+  }
+
+  def evalAdd(expr: AddOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
+    case (IntegerType(left), IntegerType(right)) => {
+      print(s"left=${left}, right=${right}")
+      IntegerType(left + right)
+    }
+    case (_, _) => throw new Exception("Add called with non integer operands")
   }
 
   def evalAnd(expr: AndOperation): Expr = expr match  {
