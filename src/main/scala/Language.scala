@@ -9,6 +9,10 @@ object Language {
   case class IntegerType(value: Int)                extends Expr
   case class AddOperation(left: Expr, right: Expr)  extends Expr
   case class SubOperation(left: Expr, right: Expr)  extends Expr
+  case class MulOperation(left: Expr, right: Expr)  extends Expr
+
+  case class Equals(left: Expr, right: Expr) extends Expr
+  case class IfOperation(condition:Expr, trueExpr: Expr, falseExpr: Expr) extends Expr
 
   def evaluate(expr: Expr): Expr = {
     expr match {
@@ -20,9 +24,25 @@ object Language {
       case XorOperation(left, right) => evalXor(XorOperation(left, right))
       case AddOperation(left, right) => evalAdd(AddOperation(left, right))
       case SubOperation(left, right) => evalSub(SubOperation(left, right))
+      case MulOperation(left, right) => evalMul(MulOperation(left, right))
+      case Equals(left, right) => evalEquals(Equals(left, right))
+      case IfOperation(condition, trueExpr, falseExpr) => evalIf(IfOperation(condition, trueExpr, falseExpr))
     }
   }
 
+  def evalIf(expr: IfOperation): Expr = evaluate(expr.condition) match {
+    case BooleanType(value) => if(value) evaluate(expr.trueExpr) else evaluate(expr.falseExpr)
+    case _ => throw new Exception("Boolean value expected in if condition")
+  }
+  def evalEquals(expr: Language.Equals): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
+    case (IntegerType(left), IntegerType(right)) => BooleanType(left == right)
+    case (BooleanType(left), BooleanType(right)) => BooleanType(left == right)
+    case (_, _) => throw new Exception("Cannot compare operands of different types")
+  }
+  def evalMul(expr: MulOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
+    case (IntegerType(left), IntegerType(right)) => IntegerType(left * right)
+    case (_, _) => throw new Exception("Mul called with non integer operands")
+  }
   def evalSub(expr: SubOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
     case (IntegerType(left), IntegerType(right)) => {
       IntegerType(left - right)
