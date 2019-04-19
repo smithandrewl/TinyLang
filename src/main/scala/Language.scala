@@ -14,10 +14,17 @@ object Language {
   case class Equals(left: Expr, right: Expr) extends Expr
   case class IfOperation(condition:Expr, trueExpr: Expr, falseExpr: Expr) extends Expr
 
+  case class EmptyList() extends Expr
+  case class ListType(first: Expr, rest: Expr) extends Expr
+
+  case class AppendOperation(value: Expr, list: Expr) extends Expr
+
   def evaluate(expr: Expr): Expr = {
     expr match {
       case BooleanType(x)            => BooleanType(x)
       case IntegerType(x)            => IntegerType(x)
+      case ListType(x, xs)           => ListType(x, xs)
+      case EmptyList()               => EmptyList()
       case AndOperation(left, right) => evalAnd(AndOperation(left, right))
       case OrOperation(left, right)  => evalOr(OrOperation(left, right))
       case NotOperation(center)      => evalNot(NotOperation(center))
@@ -27,28 +34,42 @@ object Language {
       case MulOperation(left, right) => evalMul(MulOperation(left, right))
       case Equals(left, right) => evalEquals(Equals(left, right))
       case IfOperation(condition, trueExpr, falseExpr) => evalIf(IfOperation(condition, trueExpr, falseExpr))
+      case AppendOperation(value, list) => evalAppend(AppendOperation(value, list))
     }
+  }
+
+  def evalAppend(expr: AppendOperation): Expr = (evaluate(expr.value), evaluate(expr.list)) match {
+    case (BooleanType(first),    ListType(x, xs)) =>  ListType(BooleanType(first), ListType(x, xs))
+    case (BooleanType(first),    EmptyList())     => ListType(BooleanType(first), EmptyList())
+    case (IntegerType(first),    ListType(x, xs)) => ListType(IntegerType(first), ListType(x, xs))
+    case (IntegerType(first),    EmptyList())     => ListType(IntegerType(first), EmptyList())
+    case (ListType(first, rest), ListType(x, xs)) => ListType(ListType(first, rest), ListType(x, xs))
+    case (ListType(first, rest), EmptyList())     => ListType(ListType(first, rest), EmptyList())
   }
 
   def evalIf(expr: IfOperation): Expr = evaluate(expr.condition) match {
     case BooleanType(value) => if(value) evaluate(expr.trueExpr) else evaluate(expr.falseExpr)
     case _ => throw new Exception("Boolean value expected in if condition")
   }
+
   def evalEquals(expr: Language.Equals): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
     case (IntegerType(left), IntegerType(right)) => BooleanType(left == right)
     case (BooleanType(left), BooleanType(right)) => BooleanType(left == right)
     case (_, _) => throw new Exception("Cannot compare operands of different types")
   }
+
   def evalMul(expr: MulOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
     case (IntegerType(left), IntegerType(right)) => IntegerType(left * right)
     case (_, _) => throw new Exception("Mul called with non integer operands")
   }
+
   def evalSub(expr: SubOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
     case (IntegerType(left), IntegerType(right)) => {
       IntegerType(left - right)
     }
     case (_, _) => throw new Exception("Sub called with non integer operands")
   }
+
   def evalAdd(expr: AddOperation): Expr = (evaluate(expr.left), evaluate(expr.right)) match {
     case (IntegerType(left), IntegerType(right)) => {
       IntegerType(left + right)
