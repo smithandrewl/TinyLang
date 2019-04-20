@@ -16,18 +16,7 @@ package root {
 
       }
       'IntegerTests {
-        'AddOperationTests{
-          'TwoPlusTwoIsFour {
-            assert(
-              evaluate(
-                AddOperation(
-                  IntegerType(2),
-                  IntegerType(2)
-                )
-              ) == IntegerType(4)
-            )
-          }
-        }
+
 
         'MulOperationTests {
           'TwoTimesFourIsEight {
