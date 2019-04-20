@@ -3,9 +3,9 @@ import Language._
 
 package root {
 
-  object TinyLangTests extends TestSuite {
+  object IdentityTests extends TestSuite {
     val tests = Tests {
-      'Boolean - {
+      'IdentityTests - {
         'TrueIsTrue - {
           assert(evaluate(BooleanType(true)) == BooleanType(true))
         }
@@ -13,7 +13,6 @@ package root {
         'FalseIsFalse - {
           assert(evaluate(BooleanType(false)) == BooleanType(false))
         }
-
       }
     }
   }
