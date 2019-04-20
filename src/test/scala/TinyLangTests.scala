@@ -14,41 +14,6 @@ package root {
           assert(evaluate(BooleanType(false)) == BooleanType(false))
         }
 
-        'Not {
-          'NotTrueIsFalse {
-            assert(
-              evaluate(
-                NotOperation(BooleanType(true))
-              ) == BooleanType(false)
-            )
-          }
-          'NotFalseIsTrue {
-            assert(
-              evaluate(
-                NotOperation(BooleanType(false))
-              ) == BooleanType(true)
-            )
-          }
-          'NotExprIsTrue {
-            assert(
-              evaluate(
-                NotOperation(AndOperation(BooleanType(true), BooleanType(false)))
-              ) == BooleanType(true)
-            )
-          }
-          'NotExprIsFalse {
-            assert(
-              evaluate(
-                NotOperation(
-                  AndOperation(
-                    BooleanType(true),
-                    BooleanType(true)
-                  )
-                )
-              ) == BooleanType(false)
-            )
-          }
-        }
         'Xor {
           'TrueXorTrue {
             assert(
