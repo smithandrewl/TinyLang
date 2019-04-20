@@ -15,22 +15,6 @@ package root {
         }
 
       }
-      'IntegerTests {
-
-
-        'MulOperationTests {
-          'TwoTimesFourIsEight {
-            assert(
-              evaluate(
-                MulOperation(
-                  IntegerType(2),
-                  IntegerType(4)
-                )
-              ) == IntegerType(8)
-            )
-          }
-        }
-      }
     }
   }
 }
